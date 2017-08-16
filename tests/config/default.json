@@ -1,0 +1,55 @@
+{
+  "logger": {
+    "debugEnabled": 0,
+    "logDir": "log",
+    "accessLogName": "kaltura_async_proxy_access.log",
+    "logName": "kaltura_async_proxy.log",
+    "errorLogName": "kaltura_async_proxy_error.log"
+  },
+
+  "server": {
+    "version": "v1.0"
+  },
+
+  "cdn_api_host": {
+    "cdn_api_host_http": "http://127.0.0.1/api_v3/service/system/action/ping",
+    "cdn_api_host_https": "https://127.0.0.1/api_v3/service/system/action/ping"
+  },
+
+  "cloud": {
+    "requestTimeout": 100000,
+    "httpPort": 8080,
+    "httpsPort": 443
+  },
+
+  "throttle": {
+    //example - 10 messages per second will be [messagePerTimePeriod:10 , timePeriod: 1000]
+    "messagePerTimePeriod": 10,
+    "timePeriod": 1000
+  },
+
+  "handlers": [
+    //history example
+    {
+      "identifier": {
+        "service": "userEntry",
+        "action": "update"
+      },
+      "cacheKeyParams": ["cuepointId,userEntry"],
+      //ttl in milliseconds
+      "ttl": 30000,
+      "extendTtl": true
+    },
+
+    {
+      "identifier": {
+        "service": "cuepoint_cuepoint",
+        "action": "update"
+      },
+      "cacheKeyParams": ["id"],
+      //ttl in milliseconds
+      "ttl": 20000,
+      "extendTtl": false
+    }
+  ]
+}
